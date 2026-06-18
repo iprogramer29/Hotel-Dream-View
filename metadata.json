@@ -1,0 +1,6 @@
+{
+  "name": "Dream View Hotel Website",
+  "description": "A luxury hotel booking and stay experience website for Dream View Hotel, featuring an interactive booking engine, interactive room galleries, styled customer reviews, active call-to-actions, and a persistent query contact form.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

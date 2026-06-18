@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-bento-bg: #FDFCFB;
+  --color-bento-card: #F7F4F0;
+  --color-bento-border: #EAE3D9;
+  --color-bento-accent: #C5A378;
+  --color-bento-text: #1A1A1A;
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-sans: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #f8f6f3;
+  color: var(--color-bento-text);
+  font-family: var(--font-sans);
+}
+
+section {
+  overflow: hidden;
+}
