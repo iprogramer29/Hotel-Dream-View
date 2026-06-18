@@ -1,161 +1,143 @@
-import { useState } from "react";
-import { Camera, ImageIcon, Layers, Home, DoorOpen, Building } from "lucide-react";
+import { useState, useMemo } from "react";
+import {
+  Camera,
+  ImageIcon,
+  Layers,
+  Home,
+  DoorOpen,
+  Building,
+} from "lucide-react";
 
 const galleryImages = [
-  {
-    image: "/images/gallery/image1.jpeg",
-    title: "",
-    category: "Exterior",
-  },
-  {
-    image: "/images/gallery/image2.jpeg",
-    title: "",
-    category: "Reception",
-  },
-  {
-    image: "/images/gallery/image3.jpeg",
-    title: "",
-    category: "Rooms",
-  },
-  {
-    image: "/images/gallery/image4.jpeg",
-    title: "",
-    category: "Rooms",
-  },
-  {
-    image: "/images/gallery/hotel-front.jpg",
-    title: "",
-    category: "Exterior",
-  },
-  {
-    image: "/images/gallery/image6.jpeg",
-    title: "",
-    category: "Rooms",
-  },
-  {
-    image: "/images/gallery/image7.jpeg",
-    title: "",
-    category: "Rooms",
-  },
-  {
-    image: "/images/gallery/image8.jpeg",
-    title: "",
-    category: "Rooms",
-  },
-  {
-    image: "/images/gallery/image9.jpeg",
-    title: "",
-    category: "Rooms",
-  },
+  { id: 1, image: "/images/gallery/image1.webp", category: "Exterior" },
+  { id: 2, image: "/images/gallery/image2.webp", category: "Reception" },
+  { id: 3, image: "/images/gallery/image3.webp", category: "Rooms" },
+  { id: 4, image: "/images/gallery/image4.webp", category: "Rooms" },
+  { id: 5, image: "/images/gallery/hotel-front.webp", category: "Exterior" },
+  { id: 6, image: "/images/gallery/image6.webp", category: "Rooms" },
+  { id: 7, image: "/images/gallery/image7.webp", category: "Rooms" },
+  { id: 8, image: "/images/gallery/image8.webp", category: "Rooms" },
+  { id: 9, image: "/images/gallery/image9.webp", category: "Rooms" },
+];
+
+const categories = [
+  { id: "All", label: "All Photos", icon: Layers },
+  { id: "Rooms", label: "Our Rooms", icon: Home },
+  { id: "Reception", label: "Lobby & Reception", icon: DoorOpen },
+  { id: "Exterior", label: "Exterior & Parking", icon: Building },
 ];
 
 export default function GallerySection() {
   const [activeFilter, setActiveFilter] = useState("All");
 
-  const categories = [
-    { id: "All", label: "All Photos", icon: <Layers size={14} /> },
-    { id: "Rooms", label: "Our Rooms", icon: <Home size={14} /> },
-    { id: "Reception", label: "Lobby & Reception", icon: <DoorOpen size={14} /> },
-    { id: "Exterior", label: "Exterior & Parking", icon: <Building size={14} /> },
-  ];
+  const filteredImages = useMemo(() => {
+    if (activeFilter === "All") return galleryImages;
 
-  const filteredImages = activeFilter === "All"
-    ? galleryImages
-    : galleryImages.filter(img => img.category === activeFilter);
+    return galleryImages.filter(
+      (image) => image.category === activeFilter
+    );
+  }, [activeFilter]);
 
   return (
-    <section id="gallery" className="py-20 bg-slate-50 relative overflow-hidden">
+    <section
+      id="gallery"
+      className="py-20 bg-slate-50 relative overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-4">
-
-        {/* Section Header */}
+        {/* Header */}
         <div className="text-center mb-10 space-y-3">
           <div className="inline-flex items-center gap-2 bg-rose-100/60 border border-rose-200/40 px-3 py-1 rounded-full text-rose-600 text-xs font-bold uppercase tracking-wider">
             <Camera size={14} />
             Verified Property Photos
           </div>
 
-          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900">
             Take A Virtual Walkthrough
           </h2>
 
           <p className="text-slate-500 max-w-xl mx-auto text-sm font-medium">
-            100% real, unaltered photographs of our spaces so you know exactly what your room looks like before check-in.
+            100% real photographs of our rooms, reception,
+            parking area and facilities.
           </p>
         </div>
 
-        {/* OYO-Style Interactive Filtering Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-8">
-          {categories.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveFilter(tab.id)}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all duration-200 shadow-sm border ${activeFilter === tab.id
-                  ? "bg-rose-600 border-rose-600 text-white shadow-rose-600/10"
-                  : "bg-white border-slate-200 text-slate-600 hover:bg-slate-100"
+        {/* Filters */}
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
+          {categories.map((category) => {
+            const Icon = category.icon;
+
+            return (
+              <button
+                key={category.id}
+                onClick={() => setActiveFilter(category.id)}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold transition-all border
+                ${
+                  activeFilter === category.id
+                    ? "bg-rose-600 text-white border-rose-600"
+                    : "bg-white text-slate-600 border-slate-200 hover:bg-slate-100"
                 }`}
-            >
-              {tab.icon}
-              {tab.label}
-            </button>
-          ))}
+              >
+                <Icon size={14} />
+                {category.label}
+              </button>
+            );
+          })}
         </div>
 
-        {/* Photo Display Grid System */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-300">
-          {filteredImages.map((item, index) => (
+        {/* Gallery */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredImages.map((item) => (
             <div
-              key={index}
-              className="group relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-slate-200 border border-slate-200 shadow-md hover:shadow-xl transition-all duration-300"
+              key={item.id}
+              className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-slate-200 shadow-md hover:shadow-xl transition-all"
             >
-              {/* Actual Image Asset */}
               <img
                 src={item.image}
-                alt={item.title || "Hotel Dream View"}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                alt={`Hotel Dream View ${item.category}`}
                 loading="lazy"
+                decoding="async"
+                fetchPriority="low"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
 
-              {/* Functional App Card Overlays */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-              {/* Dynamic Categorization Badge */}
-              <span className="absolute top-3 left-3 bg-slate-900/80 backdrop-blur-md text-white text-[10px] font-bold px-2.5 py-1 rounded-md border border-white/10 uppercase tracking-wider shadow-sm">
+              <span className="absolute top-3 left-3 bg-black/70 backdrop-blur-sm text-white text-[10px] px-2 py-1 rounded-md uppercase font-bold">
                 {item.category}
               </span>
 
-              {/* Title Content Information Strip */}
-              <div className="absolute bottom-4 inset-x-4">
-                <h3 className="text-white text-base font-bold tracking-tight">
-                  {item.title || `${item.category} Highlight`}
+              <div className="absolute bottom-4 left-4 right-4">
+                <h3 className="text-white font-bold text-base">
+                  {item.category}
                 </h3>
 
-                <div className="flex items-center gap-1.5 text-slate-300 text-xs mt-1 font-medium">
-                  <ImageIcon size={12} className="text-rose-400" />
-                  <span>Dream View Certified Stay</span>
+                <div className="flex items-center gap-2 text-slate-300 text-xs mt-1">
+                  <ImageIcon size={12} />
+                  Dream View Certified Stay
                 </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Dynamic OYO Trust Banner Metrics */}
-        <div className="grid grid-cols-3 gap-4 mt-12 bg-white border border-slate-200 rounded-3xl p-6 shadow-xl shadow-slate-200/40">
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-4 mt-12 bg-white border border-slate-200 rounded-3xl p-6 shadow-xl">
           {[
-            { metric: "4 Premium", label: "Room Tiers" },
-            { metric: "24/7", label: "Desk Desk Support" },
+            { metric: "4 Premium", label: "Room Types" },
+            { metric: "24/7", label: "Reception" },
             { metric: "100%", label: "Safe & Sanitized" },
-          ].map((stat, idx) => (
-            <div key={idx} className="text-center space-y-1">
-              <h4 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-                {stat.metric}
+          ].map((item) => (
+            <div key={item.label} className="text-center">
+              <h4 className="text-xl sm:text-2xl font-black text-slate-900">
+                {item.metric}
               </h4>
-              <p className="text-slate-400 text-[11px] sm:text-xs font-bold uppercase tracking-wider">
-                {stat.label}
+
+              <p className="text-slate-400 text-xs uppercase font-bold">
+                {item.label}
               </p>
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );
