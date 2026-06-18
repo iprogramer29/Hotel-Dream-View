@@ -17,7 +17,7 @@ const galleryImages = [
   { id: 6, image: "/images/gallery/image6.webp", category: "Rooms" },
   { id: 7, image: "/images/gallery/image7.webp", category: "Rooms" },
   { id: 8, image: "/images/gallery/image8.webp", category: "Rooms" },
-  { id: 9, image: "/images/gallery/image9.webp", category: "Rooms" },
+  // { id: 9, image: "/images/gallery/image9.webp", category: "Rooms" },
 ];
 
 const categories = [
