@@ -103,7 +103,7 @@ export default function Hero() {
               {/* Image Preview Window inside the Widget */}
               <div className="relative h-40 rounded-2xl overflow-hidden group">
                 <img
-                  src="/images/gallery/image3.jpeg"
+                  src="/images/gallery/image3.webp"
                   alt="Hotel Dream View Room"
                   className="w-full h-full object-cover"
                 />

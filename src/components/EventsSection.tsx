@@ -1,156 +1,204 @@
-import { useState } from "react";
 import {
-  Menu,
-  X,
-  Phone,
+  Cake,
+  Heart,
+  PartyPopper,
   MessageCircle,
-  ShieldCheck,
+  CheckCircle,
 } from "lucide-react";
 
-export default function Navbar() {
-  const [mobileMenu, setMobileMenu] = useState(false);
+const events = [
+  {
+    title: "Birthday Celebration",
+    image: "/images/gallery/image7.webp",
+    icon: Cake,
+    description:
+      "Celebrate birthdays with room decoration, cake arrangements and comfortable stay options.",
+  },
+  {
+    title: "Anniversary Celebration",
+    image: "/images/gallery/image6.webp",
+    icon: Heart,
+    description:
+      "Romantic room setup and memorable anniversary celebrations for couples.",
+  },
+  {
+    title: "Private Events",
+    image: "/images/gallery/image3.webp",
+    icon: PartyPopper,
+    description:
+      "Host family gatherings, engagement functions and private celebrations.",
+  },
+];
 
-  const menuItems = [
-    { name: "Home", link: "#" },
-    { name: "Why Choose Us", link: "#why-choose-us" },
-    { name: "Events", link: "#events" },
-    { name: "Gallery", link: "#gallery" },
-    { name: "Reviews", link: "#reviews" },
-    { name: "Contact", link: "#contact" },
-  ];
-
+export default function EventsSection() {
   const whatsappLink =
-    "https://wa.me/919099877766?text=Hello%20Hotel%20Dream%20View,%20I%20would%20like%20to%20make%20an%20enquiry.";
+    "https://wa.me/919099877766?text=Hello%20Hotel%20Dream%20View,%20I%20want%20information%20about%20event%20booking.";
 
   return (
-    <section >
-      {/* =========================================================================
-          GLOBAL APPLICATION HEADER
-         ========================================================================= */}
-      <header className="fixed top-0 inset-x-0 z-50">
-        <div className="mx-auto max-w-7xl px-4 pt-4">
-          <div className="bg-white/95 backdrop-blur-md border border-slate-200/80 shadow-md rounded-2xl transition-all duration-200">
-            <div className="h-16 px-4 sm:px-6 flex items-center justify-between">
+    <section
+      id="events"
+      className="py-16 bg-[#f5f5f5]"
+    >
+      <div className="max-w-7xl mx-auto px-4">
 
-              {/* Brand Identity / Logo Stack */}
-              <a href="#" className="flex items-center gap-3 group">
-                <div className="w-10 h-10 rounded-full border border-slate-200 overflow-hidden bg-slate-50 flex items-center justify-center shrink-0">
-                  <img
-                    src="/images/logo.jpeg"
-                    alt="Hotel Dream View Logo"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    onError={(e) => {
-                      e.currentTarget.style.display = "none";
-                    }}
-                  />
-                </div>
+        {/* Heading */}
 
-                <div className="space-y-0.5">
-                  <h1 className="text-sm sm:text-base font-black text-slate-900 tracking-tight flex items-center gap-1">
-                    HOTEL DREAM VIEW
-                  </h1>
-                  <p className="text-[9px] font-extrabold uppercase tracking-wider text-rose-600 flex items-center gap-1">
-                    <ShieldCheck size={10} className="fill-rose-600/10" />
-                    <span>Verified Surat Property</span>
-                  </p>
-                </div>
-              </a>
+        <div className="mb-10">
 
-              {/* Desktop Quick Links Navigation */}
-              <nav className="hidden lg:flex items-center gap-5">
-                {menuItems.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.link}
-                    className="text-xs font-bold uppercase tracking-wide text-slate-600 hover:text-rose-600 transition-colors duration-150 whitespace-nowrap"
-                  >
-                    {item.name}
-                  </a>
-                ))}
-              </nav>
+          <p className="text-[#d84e55] font-semibold text-sm uppercase tracking-wider">
+            EVENT BOOKINGS
+          </p>
 
-              {/* Desktop Actions */}
-              <div className="hidden lg:flex items-center gap-2.5">
-                <a
-                  href="tel:+919099877766"
-                  className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-slate-200 text-slate-700 text-xs font-bold hover:bg-slate-50 transition-colors"
-                >
-                  <Phone size={14} className="text-rose-500" />
-                  <span>Call Desk</span>
-                </a>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2">
+            Celebrate Special Moments at Hotel Dream View
+          </h2>
 
-                <a
-                  href={whatsappLink}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-sm shadow-emerald-600/10 transition-colors"
-                >
-                  <MessageCircle size={14} />
-                  <span>WhatsApp Booking</span>
-                </a>
-              </div>
+          <p className="text-gray-600 mt-3 max-w-3xl">
+            Birthday parties, anniversary celebrations, family gatherings
+            and private events with comfortable rooms and personalized setup.
+          </p>
 
-              {/* Mobile Menu Interactive State Trigger */}
-              <button
-                className="lg:hidden p-2 text-slate-700 hover:bg-slate-50 active:bg-slate-100 rounded-xl transition-colors"
-                onClick={() => setMobileMenu(!mobileMenu)}
-                aria-label="Toggle navigation interface"
+        </div>
+
+        {/* Event Cards */}
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          {events.map((event, index) => {
+            const Icon = event.icon;
+
+            return (
+              <div
+                key={index}
+                className="bg-white rounded-2xl overflow-hidden border hover:shadow-xl transition"
               >
-                {mobileMenu ? <X size={22} /> : <Menu size={22} />}
-              </button>
 
-            </div>
-          </div>
-        </div>
-      </header>
+                <div className="relative">
 
-      {/* =========================================================================
-          MOBILE OVERLAY DRAWERS MENU
-         ========================================================================= */}
-      {mobileMenu && (
-        <div className="fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-40 lg:hidden transition-all duration-200">
-          <div className="absolute top-24 inset-x-4 bg-white border border-slate-200 rounded-2xl shadow-xl p-5 animate-in fade-in slide-in-from-top-4 duration-200">
-            <div className="space-y-4">
-              
-              {/* Filter Anchor Navigation items */}
-              <div className="grid gap-1">
-                {menuItems.map((item) => (
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    className="w-full h-64 object-cover"
+                  />
+
+                  <div className="absolute top-4 left-4 bg-white rounded-xl p-2 shadow">
+                    <Icon
+                      className="text-[#d84e55]"
+                      size={20}
+                    />
+                  </div>
+
+                </div>
+
+                <div className="p-5">
+
+                  <h3 className="text-xl font-bold text-gray-900">
+                    {event.title}
+                  </h3>
+
+                  <p className="text-gray-600 text-sm mt-3">
+                    {event.description}
+                  </p>
+
+                  <div className="mt-5 space-y-2">
+
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle
+                        size={16}
+                        className="text-green-600"
+                      />
+                      Decoration Available
+                    </div>
+
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle
+                        size={16}
+                        className="text-green-600"
+                      />
+                      Family Friendly
+                    </div>
+
+                    <div className="flex items-center gap-2 text-sm">
+                      <CheckCircle
+                        size={16}
+                        className="text-green-600"
+                      />
+                      Food Arrangements
+                    </div>
+
+                  </div>
+
                   <a
-                    key={item.name}
-                    href={item.link}
-                    onClick={() => setMobileMenu(false)}
-                    className="block text-sm font-bold text-slate-800 hover:bg-slate-50 px-3 py-2.5 rounded-xl transition-colors"
+                    href={whatsappLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-5 w-full bg-[#d84e55] hover:bg-[#c43c43] text-white py-3 rounded-xl flex items-center justify-center gap-2 font-semibold transition"
                   >
-                    {item.name}
+                    <MessageCircle size={18} />
+                    Enquire Now
                   </a>
-                ))}
-              </div>
 
-              {/* Action Operations Area */}
-              <div className="pt-4 border-t border-slate-100 grid gap-2">
-                <a
-                  href="tel:+919099877766"
-                  className="flex items-center justify-center gap-2 bg-slate-100 text-slate-800 font-bold text-xs uppercase tracking-wider py-3 rounded-xl active:bg-slate-200 transition-colors"
-                >
-                  <Phone size={14} className="text-rose-600" />
-                  <span>Call Direct Desk</span>
-                </a>
+                </div>
+
+              </div>
+            );
+          })}
+        </div>
+
+        {/* OYO Style Booking Banner */}
+
+        <div className="mt-10 bg-white border rounded-2xl overflow-hidden">
+
+          <div className="grid lg:grid-cols-2 items-center">
+
+            <div className="p-8 md:p-10">
+
+              <span className="bg-red-100 text-red-600 px-3 py-1 rounded-full text-sm font-semibold">
+                Event Booking Available
+              </span>
+
+              <h3 className="text-3xl font-bold mt-4">
+                Planning a Birthday or Anniversary?
+              </h3>
+
+              <p className="text-gray-600 mt-4">
+                Contact Hotel Dream View for room availability,
+                decoration setup, food arrangements and celebration packages.
+              </p>
+
+              <div className="flex flex-wrap gap-3 mt-6">
 
                 <a
                   href={whatsappLink}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center justify-center gap-2 bg-emerald-600 text-white font-bold text-xs uppercase tracking-wider py-3 rounded-xl active:bg-emerald-700 transition-colors"
+                  className="bg-green-600 text-white px-6 py-3 rounded-xl font-semibold"
                 >
-                  <MessageCircle size={14} />
-                  <span>WhatsApp Chat</span>
+                  WhatsApp Booking
                 </a>
+
+                <a
+                  href="tel:+919099877766"
+                  className="border px-6 py-3 rounded-xl font-semibold"
+                >
+                  Call Now
+                </a>
+
               </div>
 
             </div>
+
+            <img
+              src="/images/gallery/image7.webp"
+              alt="Event Booking"
+              className="h-[350px] w-full object-cover"
+            />
+
           </div>
+
         </div>
-      )}
+
+      </div>
     </section>
   );
 }
